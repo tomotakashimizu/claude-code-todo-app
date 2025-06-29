@@ -1,0 +1,23 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "Todo application with Go backend and React frontend",
+  "scripts": {
+    "validate:api": "redocly lint schema/openapi.yaml",
+    "generate:api": "openapi-typescript schema/openapi.yaml --output frontend/src/types/api.ts",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && go run .",
+    "build": "cd frontend && npm run build",
+    "test": "cd frontend && npm run test",
+    "test:e2e": "cd frontend && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@redocly/cli": "^1.0.0",
+    "concurrently": "^8.2.2",
+    "openapi-typescript": "^7.0.0"
+  },
+  "keywords": ["todo", "api", "openapi", "go", "react"],
+  "author": "Todo App Team",
+  "license": "MIT"
+}

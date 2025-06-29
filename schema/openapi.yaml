@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: Todo API
+  description: A simple Todo application API
+  version: 1.0.0
+  contact:
+    name: Todo App Team
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:8080
+    description: Development server
+  - url: https://api.todoapp.example
+    description: Production server
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+  /api/todos:
+    get:
+      summary: Get all todos
+      description: Retrieve a list of all todos
+      operationId: getTodos
+      tags:
+        - todos
+      security:
+        - ApiKeyAuth: []
+        - {}
+      responses:
+        '200':
+          description: Successfully retrieved todos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Todo'
+                  total:
+                    type: integer
+                    description: Total number of todos
+                required:
+                  - data
+                  - total
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for authentication (optional for GET operations)
+  
+  schemas:
+    Todo:
+      type: object
+      required:
+        - id
+        - title
+        - completed
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the todo
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        title:
+          type: string
+          maxLength: 200
+          description: The title of the todo
+          example: "Buy groceries"
+        description:
+          type: string
+          maxLength: 1000
+          description: Optional detailed description of the todo
+          example: "Buy milk, bread, and eggs from the grocery store"
+        completed:
+          type: boolean
+          description: Whether the todo is completed
+          example: false
+        priority:
+          type: string
+          enum: [low, medium, high]
+          description: Priority level of the todo
+          example: "medium"
+        createdAt:
+          type: string
+          format: date-time
+          description: When the todo was created
+          example: "2024-01-15T10:30:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the todo was last updated
+          example: "2024-01-15T12:45:00Z"
+
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Error type
+          example: "INTERNAL_ERROR"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "An unexpected error occurred"
+
+tags:
+  - name: todos
+    description: Todo management operations
