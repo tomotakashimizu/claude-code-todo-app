@@ -15,8 +15,8 @@ A Go backend implementing DDD (Domain Driven Design) and Clean Architecture prin
 
 ### Infrastructure Layer (External Dependencies)
 - `internal/infrastructure/database/sqlite/` - SQLite repository implementations
-- `internal/infrastructure/api/handler/` - HTTP handlers
-- `internal/infrastructure/api/server.go` - HTTP server setup
+- `internal/interfaces/handler/` - HTTP handlers
+- `internal/interfaces/server.go` - HTTP server setup
 
 ### Entry Point
 - `cmd/server/main.go` - Application entry point with dependency injection
@@ -82,13 +82,13 @@ backend/
 │   │       ├── interfaces.go          # UseCase interfaces
 │   │       └── interactor.go          # UseCase implementation
 │   ├── infrastructure/
-│   │   ├── database/
-│   │   │   └── sqlite/
-│   │   │       └── todo_repository.go # SQLite repository
-│   │   └── api/
-│   │       ├── handler/
-│   │       │   └── todo_handler.go    # HTTP handlers
-│   │       └── server.go              # Server setup
+│   │   └── database/
+│   │       └── sqlite/
+│   │           └── todo_repository.go # SQLite repository
+│   ├── interfaces/
+│   │   ├── handler/
+│   │   │   └── todo_handler.go    # HTTP handlers
+│   │   └── server.go              # Server setup
 │   └── generated/                     # ogen generated code
 ├── go.mod
 ├── go.sum

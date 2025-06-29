@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/tomotakashimizu/claude-code-todo-app/backend/internal/infrastructure/api"
+	"github.com/tomotakashimizu/claude-code-todo-app/backend/internal/interfaces"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 		dbPath = envDBPath
 	}
 
-	server, err := api.NewServer(port, dbPath)
+	server, err := interfaces.NewServer(port, dbPath)
 	if err != nil {
 		log.Fatalf("Failed to create server: %v", err)
 	}

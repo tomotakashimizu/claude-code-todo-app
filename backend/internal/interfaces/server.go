@@ -1,4 +1,4 @@
-package api
+package interfaces
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/tomotakashimizu/claude-code-todo-app/backend/internal/domain/todo"
-	"github.com/tomotakashimizu/claude-code-todo-app/backend/internal/infrastructure/api/handler"
+	"github.com/tomotakashimizu/claude-code-todo-app/backend/internal/interfaces/handler"
 	"github.com/tomotakashimizu/claude-code-todo-app/backend/internal/infrastructure/database/sqlite"
 	todoUseCase "github.com/tomotakashimizu/claude-code-todo-app/backend/internal/usecase/todo"
 )
