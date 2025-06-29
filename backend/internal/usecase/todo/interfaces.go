@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/todo-app/backend/internal/domain/todo"
+	"github.com/tomotakashimizu/claude-code-todo-app/backend/internal/domain/todo"
 )
 
 type GetTodosInput struct{}
@@ -15,9 +15,9 @@ type GetTodosOutput struct {
 }
 
 type CreateTodoInput struct {
-	Title       string          `json:"title"`
-	Description *string         `json:"description,omitempty"`
-	Priority    todo.Priority   `json:"priority"`
+	Title       string        `json:"title"`
+	Description *string       `json:"description,omitempty"`
+	Priority    todo.Priority `json:"priority"`
 }
 
 type CreateTodoOutput struct {

@@ -3,7 +3,7 @@ package todo
 import (
 	"context"
 
-	"github.com/todo-app/backend/internal/domain/todo"
+	"github.com/tomotakashimizu/claude-code-todo-app/backend/internal/domain/todo"
 )
 
 type Interactor struct {
