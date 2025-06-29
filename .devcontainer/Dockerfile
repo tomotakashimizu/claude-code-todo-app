@@ -33,12 +33,23 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhisto
   && touch /commandhistory/.bash_history \
   && chown -R $USERNAME /commandhistory
 
+# Install Go 1.24
+RUN wget https://go.dev/dl/go1.24.4.linux-amd64.tar.gz && \
+  rm -rf /usr/local/go && \
+  tar -C /usr/local -xzf go1.24.4.linux-amd64.tar.gz && \
+  rm go1.24.4.linux-amd64.tar.gz
+
+# Set Go environment variables
+ENV PATH=/usr/local/go/bin:$PATH
+ENV GOPATH=/home/node/go
+ENV GOROOT=/usr/local/go
+
 # Set `DEVCONTAINER` environment variable to help with orientation
 ENV DEVCONTAINER=true
 
-# Create workspace and config directories and set permissions
-RUN mkdir -p /workspace /home/node/.claude && \
-  chown -R node:node /workspace /home/node/.claude
+# Create workspace, Go directories and config directories and set permissions
+RUN mkdir -p /workspace /home/node/.claude /home/node/go && \
+  chown -R node:node /workspace /home/node/.claude /home/node/go
 
 WORKDIR /workspace
 
@@ -64,6 +75,9 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
   -a "source /usr/share/doc/fzf/examples/key-bindings.zsh" \
   -a "source /usr/share/doc/fzf/examples/completion.zsh" \
   -a "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+  -a "export PATH=/usr/local/go/bin:\$PATH" \
+  -a "export GOPATH=/home/node/go" \
+  -a "export GOROOT=/usr/local/go" \
   -x
 
 # Install Claude
